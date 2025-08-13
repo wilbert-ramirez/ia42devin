@@ -9,9 +9,10 @@ const dbConfig = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    max: 25,
+    idleTimeoutMillis: 60000,
+    connectionTimeoutMillis: 5000,
+    acquireTimeoutMillis: 60000,
 };
 
 // Pool de conexiones

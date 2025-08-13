@@ -29,7 +29,6 @@ router.get('/', async (req, res) => {
             data: result.rows
         });
     } catch (error) {
-        //console.erroror('Error obteniendo estudiantes:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -40,7 +39,6 @@ router.get('/', async (req, res) => {
 // Obtener perfil del usuario autenticado (RUTA PROTEGIDA)
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
-        //console.log('entro aqui');
         // El middleware ya nos da la información del usuario
         const studentData = await pool.query(`
     SELECT 
@@ -115,7 +113,6 @@ router.put('/profile', authenticateToken, upload.single('userAvatar'), async (re
             userAvatar = `data:${mimeType};base64,${base64Data}`;
         }
 
-        //console.log('User data:', req.user);
 
         // Validaciones básicas
         if (name && (name.trim().length < 2 || name.trim().length > 100)) {
@@ -210,7 +207,6 @@ router.put('/profile', authenticateToken, upload.single('userAvatar'), async (re
 
     } catch (error) {
         await client.query('ROLLBACK');
-        //console.erroror('Error actualizando perfil:', error);
         res.status(500).json({
             success: false,
             error: error.message.includes('Solo se permiten') ? error.message : 'Error interno del servidor'
@@ -239,7 +235,6 @@ router.get('/activity', authenticateToken, async (req, res) => {
         });
 
     } catch (error) {
-        //console.erroror('Error obteniendo actividad:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -278,7 +273,6 @@ router.get('/:id', authenticateToken, requireOwnership('id'), async (req, res) =
         });
 
     } catch (error) {
-        //console.erroror('Error obteniendo estudiante:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'

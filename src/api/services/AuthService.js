@@ -119,7 +119,6 @@ class AuthService {
             }
 
         } catch (error) {
-            ////console.erroror('Error en registro:', error);
             throw error;
         }
     }
@@ -195,7 +194,6 @@ class AuthService {
             };
 
         } catch (error) {
-            ////console.erroror('Error en login:', error);
             throw error;
         }
     }
@@ -265,7 +263,6 @@ class AuthService {
             }
 
         } catch (error) {
-            ////console.erroror('Error en confirmación de email:', error);
             throw error;
         }
     }
@@ -309,7 +306,6 @@ class AuthService {
             };
 
         } catch (error) {
-            ////console.erroror('Error reenviando confirmación:', error);
             throw error;
         }
     }
@@ -417,7 +413,6 @@ class AuthService {
             }
 
         } catch (error) {
-            ////console.erroror('Error actualizando perfil:', error);
             throw error;
         }
     }

@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
             data: result.rows[0]
         });
     } catch (error) {
-        //console.erroror('Error al guardar el mensaje de contacto:', error);
         return res.status(500).json({
             success: false,
             error: 'Error interno del servidor'

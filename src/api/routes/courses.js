@@ -40,18 +40,9 @@ router.get('/', async (req, res) => {
 // Obtener todos los cursos
 router.get('/subscriptions', authenticateToken, async (req, res) => {
     try {
-        console.warn(req.user);
         const { studentId } = req.user;
 
         const result = await pool.query(`
-            WITH counts AS (
-                SELECT 
-                    COUNT(*) FILTER (WHERE sub.status = 'active' AND sub.validthru >= CURRENT_DATE) AS active_count,
-                    COUNT(*) FILTER (WHERE sub.status = 'completed') AS completed_count,
-                    COUNT(*) FILTER (WHERE sub.validthru < CURRENT_DATE) AS expired_count
-                FROM suscription sub
-                WHERE sub.id_student = $1
-            )
             SELECT 
                 lx.id,
                 lx.shortname,
@@ -65,19 +56,17 @@ router.get('/subscriptions', authenticateToken, async (req, res) => {
                 sub.currentprogress,
                 sub.status AS status_sub,
                 sub.validthru AS validthru,
-                counts.active_count,
-                counts.completed_count,
-                counts.expired_count
+                (SELECT COUNT(*) FROM suscription s2 WHERE s2.id_student = $1 AND s2.status = 'active' AND s2.validthru >= CURRENT_DATE) AS active_count,
+                (SELECT COUNT(*) FROM suscription s2 WHERE s2.id_student = $1 AND s2.status = 'completed') AS completed_count,
+                (SELECT COUNT(*) FROM suscription s2 WHERE s2.id_student = $1 AND s2.validthru < CURRENT_DATE) AS expired_count
             FROM suscription sub
             JOIN lx ON sub.id_lx = lx.id
             LEFT JOIN lx_category lxcat ON lx.id_category = lxcat.id_category
             LEFT JOIN lx_price ON lx.id_lx_price = lx_price.id
-            CROSS JOIN counts
             WHERE lx.status = 'active' 
                 AND sub.id_student = $1
             ORDER BY lx.standout DESC, lx.shortname
         `, [studentId]);
-        console.warn(studentId);
 
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -196,8 +185,6 @@ router.get('/lx/:id_lx', authenticateToken, async (req, res) => {
     try {
         const { studentId } = req.user;
         const { id_lx } = req.params;
-  console.warn(studentId)
-  console.warn(id_lx)
         // Validate id_lx
         if (isNaN(id_lx)) {
             return res.status(400).json({
@@ -247,8 +234,6 @@ router.get('/lxprompt/:id_lx', authenticateToken, async (req, res) => {
     try {
         const { studentId } = req.user;
         const { id_lx } = req.params;
-        console.warn(studentId);
-        console.warn(id_lx);
 
         // Validate id_lx
         if (isNaN(id_lx)) {

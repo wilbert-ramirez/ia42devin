@@ -33,7 +33,6 @@ router.get('/dashboard', requireRole(['admin', 'superadmin']), async (req, res) 
         });
 
     } catch (error) {
-        ////console.erroror('Error en dashboard admin:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -76,7 +75,6 @@ router.get('/users', requireRole(['superadmin']), async (req, res) => {
         });
 
     } catch (error) {
-        //console.erroror('Error obteniendo usuarios:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -138,7 +136,6 @@ router.post('/users/:userId/roles', requireRole(['superadmin']), async (req, res
         });
 
     } catch (error) {
-        //console.erroror('Error asignando rol:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -180,7 +177,6 @@ router.delete('/users/:userId/roles/:roleName', requireRole(['superadmin']), asy
         });
 
     } catch (error) {
-        //console.erroror('Error removiendo rol:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'
@@ -204,7 +200,6 @@ router.get('/roles', requireRole(['admin', 'superadmin']), async (req, res) => {
         });
 
     } catch (error) {
-        //console.erroror('Error obteniendo roles:', error);
         res.status(500).json({
             success: false,
             error: 'Error interno del servidor'

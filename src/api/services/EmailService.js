@@ -33,20 +33,16 @@ async initializeTransporter() {
         // Verificar la conexión
         if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
             await this.transporter.verify();
-            //console.log('✅ EmailService inicializado correctamente con Hostinger');
         } else {
-            //console.log('⚠️ EmailService configurado pero sin credenciales');
         }
 
     } catch (error) {
-        //console.erroror('❌ Error inicializando EmailService:', error.message);
         this.transporter = null;
     }
 }
 
 async sendConfirmationEmail(email, token, name = '') {
     if (!this.transporter) {
-        //console.log('⚠️ EmailService no disponible - Email no enviado');
         return { success: false, message: 'Servicio de email no configurado' };
     }
 
@@ -164,18 +160,15 @@ async sendConfirmationEmail(email, token, name = '') {
         };
 
         const result = await this.transporter.sendMail(mailOptions);
-        //console.log('✅ Email de confirmación enviado:', email);
         return { success: true, messageId: result.messageId };
 
     } catch (error) {
-        //console.erroror('❌ Error enviando email de confirmación:', error.message);
         return { success: false, message: error.message };
     }
 }
 
 async sendPasswordResetEmail(email, token, name = '') {
     if (!this.transporter) {
-        //console.log('⚠️ EmailService no disponible - Email no enviado');
         return { success: false, message: 'Servicio de email no configurado' };
     }
 

@@ -12,21 +12,11 @@ const router = express.Router();
 // Registro de usuario
 router.post("/register", async (req, res) => {
   try {
-    //console.log('📥 === INICIO DEBUG REGISTRO ===');
-    //console.log('📥 Request body received:', req.body);
-    //console.log('📥 Body keys:', Object.keys(req.body));
-    //console.log('📥 Body values types:', Object.keys(req.body).map(key => `${key}: ${typeof req.body[key]}`));
 
     // Validar datos de entrada
-    //console.log('🔍 Validating with registerSchema...');
     const { error, value } = registerSchema.validate(req.body);
 
-    //console.log('🔍 Validation error:', error);
-    //console.log('🔍 Validation value:', value);
-
     if (error) {
-      //console.log('❌ VALIDATION FAILED:');
-      //console.log('❌ Error details:', JSON.stringify(error.details, null, 2));
 
       return res.status(400).json({
         success: false,
@@ -39,13 +29,8 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    //console.log('✅ Validation passed! Proceeding to AuthService...');
-
     // Registrar usuario
     const result = await AuthService.register(value);
-
-    //console.log('✅ AuthService result:', result);
-    //console.log('📥 === FIN DEBUG REGISTRO ===');
 
     res.status(201).json({
       success: true,
@@ -55,10 +40,6 @@ router.post("/register", async (req, res) => {
       },
     });
   } catch (error) {
-    /* //console.erroror('❌ === ERROR EN REGISTRO ===');
-       //console.erroror('❌ Error stack:', error.stack);
-        //console.erroror('❌ Error message:', error.message);
-        //console.erroror('❌ Error object:', error);*/
 
     res.status(400).json({
       success: false,
@@ -124,7 +105,6 @@ router.post("/login", async (req, res) => {
       });
     }
   } catch (error) {
-    ////console.erroror('Error en login:', error);
 
     // Diferentes códigos de estado según el error
     let statusCode = 401;
@@ -214,7 +194,6 @@ router.post("/confirm-email", async (req, res) => {
       message: "Email confirmado exitosamente. Ya puedes iniciar sesión.",
     });
   } catch (error) {
-    //console.erroror('Error confirmando email:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -279,7 +258,6 @@ router.post("/resend-confirmation", async (req, res) => {
       emailSent,
     });
   } catch (error) {
-    //console.erroror('Error reenviando confirmación:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -328,7 +306,6 @@ router.post("/check-verification-status", async (req, res) => {
           : "Email no verificado",
     });
   } catch (error) {
-    //console.erroror('❌ Error checking verification status:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -421,7 +398,6 @@ router.post("/forgot-password", async (req, res) => {
       emailSent,
     });
   } catch (error) {
-    //console.erroror('Error en forgot-password:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -471,7 +447,6 @@ router.post("/validate-reset-token", async (req, res) => {
       },
     });
   } catch (error) {
-    //console.erroror('Error validando token:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -593,7 +568,6 @@ router.post("/reset-password", async (req, res) => {
       client.release();
     }
   } catch (error) {
-    //console.erroror('Error restableciendo password:', error);
     res.status(500).json({
       success: false,
       error: "Error interno del servidor",
@@ -617,7 +591,6 @@ router.delete("/cleanup/:email", async (req, res) => {
     const { email } = req.params;
     const { deleteAuth = true } = req.query; // ?deleteAuth=true/false
 
-    //console.log(`🧹 Limpiando usuario: ${email} (deleteAuth: ${deleteAuth})`);
 
     // Usar tu función SQL
     const result = await pool.query(
@@ -629,7 +602,6 @@ router.delete("/cleanup/:email", async (req, res) => {
 
     const logResult = result.rows[0]?.log_result || "No result";
 
-    //console.log('🧹 Resultado de limpieza:\n', logResult);
 
     res.json({
       success: true,
