@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/app/"> 
+    <title>Dashboard - IA42</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/dashboard.css" rel="stylesheet">
+    <style>
+/* Base styles (Light mode) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #333333;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333333;
+}
+
+.modal-header .close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333333;
+    background: transparent;
+}
+
+.modal-header .close:hover {
+    color: #000000;
+    background: #e0e0e0;
+}
+
+.modal-body {
+    padding: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+}
+
+.input-wrapper i {
+    margin: 0 8px;
+    color: #666666;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 8px 8px 32px; /* Adjust padding for icon */
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: transparent;
+    color: #333333;
+}
+
+.form-group input::placeholder {
+    color: #666666;
+}
+
+.field-error {
+    color: #d32f2f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border: 1px solid #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-full {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-loader {
+    display: flex;
+    align-items: center;
+}
+
+.btn-loader .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.avatar-preview img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #dddddd;
+}
+
+.user-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .modal {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #1e1e1e;
+    border: 1px solid #444444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom: 1px solid #444444;
+}
+
+[data-theme="dark"] .modal-header h2 {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .modal-header .close {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .modal-header .close:hover {
+    color: #ffffff;
+    background: #444444;
+}
+
+[data-theme="dark"] .form-group label {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .input-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+[data-theme="dark"] .input-wrapper i {
+    color: #999999;
+}
+
+[data-theme="dark"] .form-group input {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .form-group input::placeholder {
+    color: #999999;
+}
+
+[data-theme="dark"] .field-error {
+    color: #ff5555;
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #1e90ff;
+    border: 1px solid #1e90ff;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: #1c86ee;
+    border-color: #1c86ee;
+}
+
+[data-theme="dark"] .btn-loader .spinner {
+    border: 2px solid #e0e0e0;
+    border-top-color: transparent;
+}
+
+[data-theme="dark"] .avatar-preview img {
+    border: 1px solid #555555;
+}
+
+/* Animation for spinner */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+    </style>
+</head>
+<body>
+    <div id="header-placeholder-dashboard"></div>
+
+    <main class="dashboard">
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="dashboard-title">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h1 id="userName">Cargando...</h1>
+                            <div id="userRoles"></div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" id="editProfileBtn">
+                            <i class="fas fa-edit"></i> Editar Perfil
+                        </button>
+                        <button class="btn btn-secondary" id="openAdminPanelBtn" style="display: none;">
+                            <i class="fas fa-cogs"></i> Panel Admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon profile">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 class="card-title">Mi Perfil</h2>
+                    </div>
+                    <div class="profile-info" id="profileInfo">
+                        <div class="loading" id="profileInfoLoading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando perfil...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon courses">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h2 class="card-title">Mis Experiencias de Aprendizaje</h2>
+                    </div>
+                    <div class="text-stat-number ">Activas: <span class="stat-number" id="activeCount"></span></div>
+                    <div class="text-stat-number ">Completas: <span class="stat-number" id="completedCount"></span></div>
+                    <div class="text-stat-number ">Expiradas: <span class="stat-number" id="expiredCount"></span></div>
+                    <div class="stat-label">Experiencias de Aprendizaje disponibles</div>
+                    <button class="btn btn-primary courses-link-all" id="exploreCoursesBtn" style="margin-top: 1rem;">
+                        <i class="fas fa-plus"></i> Explorar Experiencia de Aprendizaje
+                    </button>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon activity">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h2 class="card-title">Actividad Reciente</h2>
+                    </div>
+                    <div class="activity-list" id="activityList">
+                        <div class="loading" id="activityListLoading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando actividad...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card" id="adminCard" style="display: none;">
+                    <div class="card-header">
+                        <div class="card-icon admin">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="card-title">Panel de Administración</h2>
+                    </div>
+                    <div id="adminStats">
+                        <div class="loading" id="adminStatsLoading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando estadísticas...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Editar Perfil</h2>
+                <span class="close" data-modal-id="editProfileModal">×</span>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="editName"><i class="fas fa-user"></i> Nombre Completo</label>
+                        <input type="text" id="editName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBirthdate"><i class="fas fa-birthday-cake"></i> Fecha de Nacimiento</label>
+                        <input type="date" id="editBirthdate" name="birthdate">
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserAvatar"><i class="fas fa-image"></i> Avatar</label>
+                        <input type="file" id="editUserAvatar" name="userAvatar" accept="image/jpeg,image/png">
+                        <div class="avatar-preview" id="avatarPreview" style="margin-top: 10px;">
+                            <img id="avatarImage" src="" alt="Avatar Preview" style="max-width: 100px; display: none;">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-spinner fa-spin" id="editSpinner" style="display: none;"></i>
+                        Guardar Cambios
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText"></span>
+            <span class="notification-close" id="closeDashboardNotificationBtn">×</span>
+        </div>
+    </div>
+
+    
+
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+</body>
+</html>

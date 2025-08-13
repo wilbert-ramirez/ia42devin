@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/app/">
+    <title>Registro - IA42</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ✅ CSS Styles - Arquitectura organizada -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/password-toggle-unified.css"> <!-- ✅ NUEVO -->
+    <link rel="stylesheet" href="assets/css/register.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="register-main">
+        <div class="register-card">
+            
+            <!-- Progress Indicator -->
+            <div class="register-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <span class="progress-label">Información</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <span class="progress-label">Verificación</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Registration Form -->
+            <div id="step1" class="register-form-step">
+                <div class="register-form-header">
+                    <h2 class="register-form-title">Crear Cuenta</h2>
+                    <p class="register-form-subtitle">Completa tu información para comenzar</p>
+                </div>
+
+                <form id="registerForm">
+                    <!-- Nombre Completo -->
+                    <div class="register-form-group">
+                        <label class="register-form-label" for="name">Nombre Completo</label>
+                        <div class="register-input-container">
+                            <i class="fas fa-user register-input-icon"></i>
+                            <input type="text" id="name" class="register-form-input" required 
+                                placeholder="Tu nombre completo" autocomplete="name">
+                        </div>
+                        <div id="nameError" class="register-field-error"></div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="register-form-group">
+                        <label class="register-form-label" for="email">Correo Electrónico</label>
+                        <div class="register-input-container">
+                            <i class="fas fa-envelope register-input-icon"></i>
+                            <input type="email" id="email" class="register-form-input" required 
+                                placeholder="tu@email.com" autocomplete="email">
+                        </div>
+                        <div id="emailError" class="register-field-error"></div>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="register-form-group">
+                        <label class="register-form-label" for="password">Contraseña</label>
+                        <div class="register-input-container">
+                            <i class="fas fa-lock register-input-icon"></i>
+                            <input type="password" id="password" class="register-form-input" required 
+                                placeholder="Mínimo 12 caracteres" autocomplete="new-password">
+                            <button type="button" id="togglePassword" class="password-toggle" 
+                                    aria-label="Mostrar/ocultar contraseña">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="passwordError" class="register-field-error"></div>
+                        
+                        <!-- Password Strength Indicator -->
+                        <div id="passwordStrength" class="register-password-strength">
+                            <div class="register-strength-bar-container">
+                                <div class="register-strength-bar-bg">
+                                    <div id="strengthBar" class="register-strength-bar"></div>
+                                </div>
+                                <span id="strengthText" class="register-strength-text">Seguridad de la contraseña</span>
+                            </div>
+                            <div class="register-requirements-grid">
+                                <div class="register-requirement" data-req="length">
+                                    <i class="fas fa-circle"></i> 12+ caracteres
+                                </div>
+                                <div class="register-requirement" data-req="lowercase">
+                                    <i class="fas fa-circle"></i> Minúscula
+                                </div>
+                                <div class="register-requirement" data-req="uppercase">
+                                    <i class="fas fa-circle"></i> Mayúscula
+                                </div>
+                                <div class="register-requirement" data-req="number">
+                                    <i class="fas fa-circle"></i> Número
+                                </div>
+                                <div class="register-requirement symbol" data-req="symbol">
+                                    <i class="fas fa-circle"></i> Símbolo (@$!%*?&#+-_)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmar Contraseña -->
+                    <div class="register-form-group">
+                        <label class="register-form-label" for="confirmPassword">Confirmar Contraseña</label>
+                        <div class="register-input-container">
+                            <i class="fas fa-lock register-input-icon"></i>
+                            <input type="password" id="confirmPassword" class="register-form-input" required 
+                                placeholder="Confirma tu contraseña" autocomplete="new-password">
+                            <button type="button" id="toggleConfirmPassword" class="password-toggle"
+                                    aria-label="Mostrar/ocultar confirmación de contraseña">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="confirmPasswordError" class="register-field-error"></div>
+                    </div>
+
+                    <!-- Términos y Condiciones -->
+                    <div class="register-checkbox-group">
+                        <label class="register-checkbox-label">
+                            <input type="checkbox" id="readusageterms" class="register-checkbox-input" required>
+                            <span class="register-checkbox-text">
+                                Acepto los <a href="#" class="register-link">Términos de Uso</a>
+                            </span>
+                        </label>
+                        <div id="readusagetermsError" class="register-field-error"></div>
+                    </div>
+
+                    <div class="register-checkbox-group">
+                        <label class="register-checkbox-label">
+                            <input type="checkbox" id="readprivatepolicy" class="register-checkbox-input" required>
+                            <span class="register-checkbox-text">
+                                Acepto la <a href="#" class="register-link">Política de Privacidad</a>
+                            </span>
+                        </label>
+                        <div id="readprivatepolicyError" class="register-field-error"></div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="register-submit-button">
+                        <span id="submitText">Crear Cuenta</span>
+                        <span id="submitLoader" class="register-submit-loader">
+                            <i class="fas fa-spinner fa-spin"></i> Creando cuenta...
+                        </span>
+                    </button>
+                </form>
+
+                <div class="register-form-footer">
+                    <p class="register-footer-text">
+                        ¿Ya tienes una cuenta? <a href="login.html" class="register-link">Iniciar Sesión</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2: Email Verification -->
+            <div id="step2" class="register-form-step" style="display: none;">
+                <div class="register-success-container">
+                    <div class="register-success-icon">
+                        <i class="fas fa-envelope-circle-check"></i>
+                    </div>
+                    <h2 class="register-form-title">¡Cuenta Creada!</h2>
+                    <p class="register-form-subtitle" style="margin-bottom: 1rem;">
+                        Hemos enviado un enlace de verificación a:
+                    </p>
+                    <div id="sentToEmail" class="register-email-display"></div>
+                    
+                    <div class="register-button-group">
+                        <button id="checkVerificationBtn" class="register-submit-button">
+                            <i class="fas fa-refresh"></i> Verificar Estado
+                        </button>
+                        <button id="resendVerificationBtn" class="register-secondary-button">
+                            <i class="fas fa-paper-plane"></i> Reenviar Correo
+                        </button>
+                    </div>
+
+                    <div class="register-info-box">
+                        <p class="register-info-title">¿No encuentras el correo?</p>
+                        <ul class="register-info-list">
+                            <li>Revisa tu carpeta de spam o correo no deseado</li>
+                            <li>Asegúrate de que el correo sea correcto</li>
+                            <li>El enlace expira en 24 horas</li>
+                        </ul>
+                    </div>
+
+                    <a href="index.html" class="register-link">Volver al inicio de sesión</a>
+                </div>
+            </div>
+        </div>
+        <!-- El contenedor de toast se manejará globalmente en main.js -->
+        <!-- <div id="toastContainer" class="register-toast-container"></div> -->
+    </main>
+
+    <!-- Toast Container -->
+<div id="toastContainer" class="register-toast-container"></div>
+
+    <!-- El footer global se cargará aquí -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ✅ JavaScript - Arquitectura organizada y optimizada (IGUAL QUE LOGIN.HTML) -->
+    
+    <!-- 1. Funcionalidades base -->
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/auth.js" defer></script>
+    
+    <!-- 2. Sistema unificado de password toggle -->
+    <script src="assets/js/password-toggle-unified.js" defer></script> <!-- ✅ NUEVO -->
+    
+    <!-- 3. Funcionalidades globales -->
+    <script src="assets/js/main.js" defer></script>
+    
+    <!-- 4. Funcionalidades específicas de register (debe ir al final) -->
+    <script src="assets/js/register.js" defer></script>
+
+    <!-- 🧪 Scripts de desarrollo (solo en localhost) -->
+    <script>
+        // Auto-completar para testing en desarrollo
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Descomentar para testing rápido
+                // document.getElementById('name').value = 'Usuario Test';
+                // document.getElementById('email').value = 'test@example.com';
+                // document.getElementById('password').value = 'Password123!';
+                // document.getElementById('confirmPassword').value = 'Password123!';
+                
+                console.log('🧪 Modo desarrollo activado');
+                console.log('📋 Para testing rápido, descomenta las líneas en el script de desarrollo');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalles de la LX - IA42</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="assets/css/styles.css" rel="stylesheet" />
+  <link href="assets/css/index.css" rel="stylesheet" />
+  <base href="/app/" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-theme {
+      background-color: #333;
+      color: #ddd;
+    }
+    .course-container {
+      margin: 5%;
+      padding: 3rem 1rem;
+    }
+    .course-section h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    body.dark-theme .course-section h1 {
+      color: #ddd;
+    }
+    .course-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    body.dark-theme .course-card {
+      background: #444;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .course-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .course-details p {
+      margin: 0.5rem 0;
+      font-size: 1.1em;
+    }
+    .course-details .description, .course-details .focus, .course-details .technical-desc, .course-details .commercial-desc {
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+    .course-details .standout {
+      color: #28a745;
+      font-weight: bold;
+    }
+    body.dark-theme .course-details .standout {
+      color: #2ecc71;
+    }
+    #course-message {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 20px 0;
+      color: #333;
+    }
+    body.dark-theme #course-message {
+      color: #ddd;
+    }
+    #course-message .alert-danger {
+      color: #dc3545;
+    }
+    body.dark-theme #course-message .alert-danger {
+      color: #e74c3c;
+    }
+    .btn-primary {
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      text-align: center;
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+    }
+    body.dark-theme .btn-primary {
+      background-color: #e0a800;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #e0a800;
+    }
+    body.dark-theme .btn-primary:hover {
+      background-color: #cc9600;
+    }
+    .btn-primary:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="course-container">
+    <section class="course-section">
+      <h1><i class="fas fa-book"></i> Detalles de la LX</h1>
+      <div class="container">
+        <div class="course-card">
+          <img id="course-image" src="" alt="Imagen del curso" class="course-image" style="display: none;" />
+          <div class="course-details">
+            <p><span id="course-name">Cargando...</span></p>
+            <p class="technical-desc"><strong>Descripción Técnica:</strong> <span id="course-technical-desc">Cargando...</span></p>
+            <p class="commercial-desc"><strong>Descripción Comercial:</strong> <span id="course-commercial-desc">Cargando...</span></p>
+            <p><strong>Precio:</strong> $<span id="course-price">N/A</span> USD</p>
+            <a id="pay-now" class="btn-primary" href="#" style="display: none;">Suscribirse​</a>
+          </div>
+          <div id="course-message"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <div id="notificationContainer"></div>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/index.js" defer></script>
+  <script src="assets/js/details.js" defer></script>
+</body>
+</html>

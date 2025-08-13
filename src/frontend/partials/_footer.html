@@ -1,0 +1,19 @@
+<footer class="site-footer" style="text-align: center; padding: 20px 0; background-color: var(--surface); border-top: 1px solid var(--border); margin-top: 40px; color: var(--muted-foreground);">
+    <div class="container">
+        <p>&copy; <span id="currentYear"></span> IA42. Todos los derechos reservados.</p>
+        <p style="margin-top: 10px;">
+            <!-- Ajusta los href si tienes páginas dedicadas para estos. Se añade clase footer-link -->
+            <a href="/privacy.html" style="margin: 0 10px; color: var(--muted-foreground); text-decoration: none; transition: color 0.3s ease;" class="footer-link">Política de Privacidad</a> |
+            <a href="/terms.html" style="margin: 0 10px; color: var(--muted-foreground); text-decoration: none; transition: color 0.3s ease;" class="footer-link">Términos de Servicio</a>
+        </p>
+    </div>
+    <!-- Notification toast (global) -->
+    <div class="notification" id="notification" style="display: none;">
+      <div class="notification-content">
+        <i class="fas fa-info-circle"></i>
+        <span id="notificationText"></span>
+        <span class="notification-close" id="closeNotificationBtn">&times;</span>
+      </div>
+    </div>
+    
+</footer>

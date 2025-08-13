@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IA42 - Plataforma de Aprendizaje</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/index.css" rel="stylesheet" />
+    <base href="/app/" />
+    <style>
+        .modal .modal-content {
+  max-width: 400px;
+  margin: auto;
+  border-radius: var(--border-radius);
+  padding: 1rem 1.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+}
+
+.modal-header .close {
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <!-- El header se cargará aquí por main.js -->
+    <div id="header-placeholder"></div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Desbloquea tu potencial con Aprendizaje Potenciado por IA</h1>
+          <p>
+            Descubre experiencias interactivas adaptadas a tu crecimiento.
+            Interactúa con tutores inteligentes y alcanza tus metas más rápido.
+          </p>
+          <div class="hero-buttons">
+            <a href="register.html" class="btn btn-primary">
+              <i class="fas fa-rocket"></i> Comenzar Ahora
+            </a>
+            <a href="login.html" class="btn btn-secondary">
+              <i class="fas fa-sign-in-alt"></i> Ya tengo cuenta
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="container">
+        <h2>¿Por qué elegir IA42?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h3>IA Personalizada</h3>
+            <p>
+              Aprende con tutores de inteligencia artificial adaptados a tu
+              ritmo y estilo
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Progreso en Tiempo Real</h3>
+            <p>Monitorea tu avance y recibe retroalimentación instantánea</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Comunidad Global</h3>
+            <p>Conecta con estudiantes y expertos de todo el mundo</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-content">
+          <h2 class="about-heading">Sobre IA42</h2>
+          <p class="about-paragraph">
+            IA42 es una plataforma educativa revolucionaria que utiliza
+            inteligencia artificial para personalizar tu experiencia de
+            aprendizaje. Nuestra misión es hacer que la educación sea más
+            accesible, efectiva y adaptada a las necesidades individuales de
+            cada estudiante.
+          </p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">1000+</div>
+              <div class="stat-label">Estudiantes Activos</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Cursos Disponibles</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">Soporte de IA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+      <div class="container">
+        <h2 class="cta-heading">¿Listo para comenzar?</h2>
+        <p class="cta-paragraph">
+          Únete a miles de estudiantes que ya están transformando su futuro con
+          IA42
+        </p>
+        <div class="cta-buttons">
+          <a href="register.html" class="btn btn-primary btn-cta-primary">
+            <i class="fas fa-rocket"></i> Crear Cuenta Gratis
+          </a>
+          <a href="login.html" class="btn btn-secondary btn-cta-secondary">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" style=" padding: 3rem 1rem;">
+  <div class="container" style="max-width: 600px; margin: 0 auto;">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">
+      Ponte en <span style="color: orange;">Contacto</span>
+    </h2>
+    <p style="text-align: center; margin-bottom: 2rem;">
+      ¿Tienes preguntas o quieres saber más? ¡Contáctanos!
+    </p>
+    <form>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="name" style="display: block; margin-bottom: 0.5rem;">Nombre Completo</label>
+        <input type="text" id="contactFullName" name="contactFullName" placeholder="Tu Nombre Completo"
+          style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: none; background-color: #1c1c1c; color: white;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="email" style="display: block; margin-bottom: 0.5rem;">Correo Electrónico</label>
+        <input type="email" id="contactEmail" name="contactEmail" placeholder="tucorreo@correo.com"
+          style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: none; background-color: #1c1c1c; color: white;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="message" style="display: block; margin-bottom: 0.5rem;">Mensaje</label>
+        <textarea id="contactMessage" name="contactMessage" rows="5" placeholder="Tu mensaje aquí..."
+          style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: none; background-color: #1c1c1c; color: white;"></textarea>
+      </div>
+      <button type="button" id="enviarFormularioContacto"
+        style="width: 100%; padding: 0.75rem; background-color: #ffc107; color: black; font-weight: bold; border: none; border-radius: 0.5rem; cursor: pointer;">
+        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+      </button>
+    </form>
+  </div>
+</section>
+
+
+    <!-- Mantener modales como fallback/alternativa -->
+    <!-- Login Modal (Oculto por defecto, disponible como fallback) -->
+    <div class="modal" id="loginModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h2>
+          <span class="close" data-modal-id="loginModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">
+                <i class="fas fa-envelope"></i> Correo Electrónico
+              </label>
+              <input type="email" id="loginEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">
+                <i class="fas fa-lock"></i> Contraseña
+              </label>
+              <input type="password" id="loginPassword" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-spinner fa-spin" id="loginSpinner"></i>
+              Iniciar Sesión
+            </button>
+          </form>
+          <div class="modal-footer">
+            <p>
+              <a href="#" id="showForgotPasswordLinkIndex"
+                >¿Olvidaste tu contraseña?</a
+              >
+            </p>
+            <p>
+              ¿No tienes cuenta?
+              <a href="register.html">Regístrate aquí</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Modal (Oculto por defecto, disponible como fallback) -->
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
+          <span class="close" data-modal-id="registerModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="registerName">
+                <i class="fas fa-user"></i> Nombre Completo
+              </label>
+              <input type="text" id="registerName" required />
+            </div>
+            <div class="form-group">
+              <label for="registerEmail">
+                <i class="fas fa-envelope"></i> Correo Electrónico
+              </label>
+              <input type="email" id="registerEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">
+                <i class="fas fa-lock"></i> Contraseña
+              </label>
+              <input type="password" id="registerPassword" required />
+              <small class="password-help">
+                Mínimo 12 caracteres, incluye mayúsculas, minúsculas, números y
+                símbolos
+              </small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-spinner fa-spin" id="registerSpinner"></i>
+              Crear Cuenta
+            </button>
+          </form>
+          <div class="modal-footer">
+            <p>
+              ¿Ya tienes cuenta?
+              <a href="login.html">Inicia sesión aquí</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Restablecer Contraseña -->
+<div class="modal" id="passwordResetModal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2><i class="fas fa-key"></i> Restablecer Contraseña</h2>
+      <span class="close" data-modal-id="passwordResetModal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form id="passwordResetForm">
+        <div class="form-group" style="position: relative;">
+          <label for="newPassword"><i class="fas fa-lock"></i> Nueva Contraseña</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            required
+            minlength="12"
+            aria-describedby="passwordHelp"
+          />
+          <i
+            class="fas fa-eye toggle-password"
+            data-target="newPassword"
+            style="position: absolute; right: 10px; top: 49px; cursor: pointer;"
+          ></i>
+          <small id="passwordHelp" class="form-text text-muted">
+            Mínimo 12 caracteres, incluyendo mayúsculas, minúsculas, números y símbolos.
+          </small>
+        </div>
+
+        <div class="form-group" style="position: relative;">
+          <label for="confirmPassword"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+          <i
+            class="fas fa-eye toggle-password"
+            data-target="confirmPassword"
+            style="position: absolute; right: 10px; top: 49px; cursor: pointer;"
+          ></i>
+        </div>
+
+        <div id="passwordResetError" style="color: red; margin-bottom: 1rem;" role="alert" aria-live="assertive"></div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          Actualizar Contraseña
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-key"></i> Recuperar Contraseña</h2>
+          <span class="close" data-modal-id="forgotPasswordModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="forgotPasswordForm">
+            <div class="form-group">
+              <label for="forgotEmail">
+                <i class="fas fa-envelope"></i> Correo Electrónico
+              </label>
+              <input type="email" id="forgotEmail" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i
+                class="fas fa-spinner fa-spin"
+                id="forgotSpinner"
+                style="display: none"
+              ></i>
+              Enviar Enlace de Recuperación
+            </button>
+          </form>
+          <div class="modal-footer">
+            <p>
+              <a href="login">Volver al inicio de sesión</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- El footer se cargará aquí por main.js -->
+    <div id="footer-placeholder"></div>
+    <!-- Notification -->
+    <div id="notificationContainer"></div>
+
+    <!-- Scripts -->
+     
+
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/auth.js" defer></script>
+    <!-- Al final del body en index.html -->
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/index.js" defer></script>
+    <script>
+  document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.addEventListener('click', function () {
+      const targetId = this.getAttribute('data-target');
+      const input = document.getElementById(targetId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
+      }
+    });
+  });
+</script>
+  </body>
+</html>

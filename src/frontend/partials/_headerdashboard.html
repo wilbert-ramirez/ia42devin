@@ -1,0 +1,37 @@
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <!-- Asegúrate de que la ruta de la imagen sea correcta desde la raíz del frontend -->
+            <img id="appLogo" src="assets/img/logo_fondo_negro_short.png" alt="IA42 Logo">
+        </div>
+
+        <nav class="nav" id="nav">
+            <a class="nav-link" id="tellFriendBtn">
+                Cuéntale a un Amigo
+            </a>
+            <a href="index.html#home" class="nav-link" data-nav-target-page="index" data-nav-target-section="home">Inicio</a>
+            <a href="lx-home.html" class="nav-link link-lxs" data-nav-target-page="index" data-nav-target-section="lx">LXs</a>
+            <a href="dashboard.html" class="nav-link link-dashboard">Dashboard</a>
+            
+            <a href="lx-student.html" class="nav-link">Mis Experiencia de Aprendizaje</a>
+            <div class="theme-toggle">
+                <i class="fas fa-sun theme-icon" id="lightIcon"></i>
+                <!-- El botón de cambio de tema será manejado por theme.js -->
+                <button class="theme-switch" aria-label="Cambiar tema" id="themeToggle"></button>
+                <i class="fas fa-moon theme-icon" id="darkIcon"></i>
+            </div>
+            <div class="user-menu" style="margin-left: auto; display: flex; align-items: center; gap: 1rem;">
+                
+                <button class="btn btn-secondary logout">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+                <span id="user-name" class="user-name"></span>
+            </div>
+        </nav>
+
+        <!-- Botón para menú móvil, manejado por main.js -->
+        <div class="menu-toggle" id="menuToggleBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>

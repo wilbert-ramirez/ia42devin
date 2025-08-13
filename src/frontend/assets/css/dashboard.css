@@ -1,0 +1,334 @@
+/* IA42 Dashboard Page Styles */
+/* Adaptado para usar variables globales de styles.css y sistema de temas */
+
+.dashboard {
+    padding: 100px 0 50px; /* Espacio para header fijo y footer */
+    min-height: calc(100vh - 120px); /* Ajustar si el footer tiene altura diferente */
+    background: var(--background); /* Usa variable global */
+    color: var(--foreground); /* Usa variable global */
+}
+
+.dashboard-header {
+    background: var(--surface); /* Usa variable global */
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow); /* Usa variable global */
+    border-bottom: 1px solid var(--border);
+}
+
+.dashboard-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* Aumentado el gap */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    background: var(--primary); /* Usa variable global */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-foreground); /* Usa variable global */
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-primary);
+}
+
+.user-info h1 {
+    font-size: 1.75rem; /* Tamaño ajustado */
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0;
+}
+
+#userRoles {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin-top: 0.25rem;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Estilos para los botones ya definidos en styles.css (.btn, .btn-primary, .btn-secondary) */
+/* No es necesario redefinirlos a menos que se necesiten ajustes específicos para el dashboard */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.dashboard-card {
+    background: var(--surface); /* Usa variable global */
+    border-radius: var(--border-radius-lg); /* Usa variable global */
+    padding: 1.5rem; /* Ajustado padding */
+    box-shadow: var(--shadow); /* Usa variable global */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px); /* Efecto hover más pronunciado */
+    box-shadow: var(--shadow-lg); /* Usa variable global */
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-icon {
+    width: 48px; /* Tamaño ajustado */
+    height: 48px; /* Tamaño ajustado */
+    border-radius: var(--border-radius); /* Usa variable global */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-foreground); /* Usa variable global */
+    font-size: 1.25rem;
+}
+
+/* Colores específicos para iconos de tarjeta, usando variables globales */
+.card-icon.profile { background: var(--gradient-primary); }
+.card-icon.courses { background: var(--gradient-secondary); } /* Usando secondary para variedad */
+.card-icon.activity { background: linear-gradient(135deg, var(--info), hsl(var(--info-hsl), 0.8)); } /* Usando info */
+.card-icon.admin { background: linear-gradient(135deg, var(--error), hsl(var(--error-hsl), 0.8)); } /* Usando error */
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground); /* Usa variable global */
+}
+
+.stat-number {
+    font-size: 1.25rem; /* Tamaño ajustado */
+    font-weight: 700;
+    color: var(--gradient-secondary); /* Usa variable global */
+    margin-bottom: 0.25rem; /* Reducido margen */
+}
+
+.text-stat-number {
+    font-size: 1.50rem; /* Tamaño ajustado */
+    font-weight: 700;
+    color: var(--primary); /* Usa variable global */
+    margin-bottom: 0.25rem; /* Reducido margen */
+}
+
+.stat-label {
+    color: var(--muted-foreground); /* Usa variable global */
+    font-size: 0.875rem;
+}
+
+.profile-info {
+    display: grid;
+    gap: 0.75rem; /* Reducido gap */
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border); /* Usa variable global */
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--muted-foreground); /* Usa variable global */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-value {
+    color: var(--foreground); /* Usa variable global */
+    font-weight: 500;
+}
+
+.activity-list {
+    max-height: 280px; /* Ajustado */
+    overflow-y: auto;
+    padding-right: 0.5rem; /* Espacio para scrollbar */
+}
+/* Estilo para scrollbar (opcional, para consistencia) */
+.activity-list::-webkit-scrollbar {
+    width: 6px;
+}
+.activity-list::-webkit-scrollbar-track {
+    background: var(--surface-hover);
+    border-radius: 3px;
+}
+.activity-list::-webkit-scrollbar-thumb {
+    background: var(--muted-foreground);
+    border-radius: 3px;
+}
+.activity-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0; /* Ajustado padding */
+    border-bottom: 1px solid var(--border); /* Usa variable global */
+}
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 36px; /* Tamaño ajustado */
+    height: 36px; /* Tamaño ajustado */
+    border-radius: 50%;
+    background: var(--surface-hover); /* Usa variable global */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-foreground); /* Usa variable global */
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 500;
+    color: var(--foreground); /* Usa variable global */
+    margin-bottom: 0.1rem; /* Reducido margen */
+}
+
+.activity-time {
+    font-size: 0.8rem; /* Tamaño ajustado */
+    color: var(--muted-foreground); /* Usa variable global */
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--muted-foreground); /* Usa variable global */
+    font-size: 1rem;
+}
+.loading i {
+    margin-right: 0.5rem;
+}
+
+.role-badge {
+    display: inline-block;
+    background: var(--primary); /* Usa variable global */
+    color: var(--primary-foreground); /* Usa variable global */
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius); /* Usa variable global */
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0.25rem;
+    text-transform: capitalize;
+}
+
+.role-badge.admin {
+    background: var(--error); /* Usa variable global */
+    color: var(--foreground); /* Ajustar si es necesario para contraste */
+}
+
+.role-badge.instructor {
+    background: var(--warning); /* Usa variable global */
+    color: var(--background); /* Ajustar si es necesario para contraste */
+}
+
+.role-badge.student {
+    background: var(--success); /* Usa variable global */
+    color: var(--foreground); /* Ajustar si es necesario para contraste */
+}
+
+/* Modal de Editar Perfil (ya usa clases de styles.css, pero podemos refinar) */
+#editProfileModal .modal-content {
+    max-width: 500px;
+}
+#editProfileModal .modal-header h2 {
+    color: var(--primary);
+}
+#editProfileModal .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+#editProfileModal .form-group input {
+    margin-top: 0.25rem;
+}
+
+/* Notificación del Dashboard (ya usa clases de styles.css) */
+/* Se puede ajustar si es necesario */
+#notification.notification { /* Para ser más específico si hay otras notificaciones */
+    top: 80px; /* Ajustar si el header es más alto */
+}
+
+#tellFriendBtn{
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .dashboard-title {
+        flex-direction: column;
+        align-items: flex-start; /* Alinear a la izquierda en móvil */
+        text-align: left; /* Alinear texto a la izquierda */
+    }
+    .user-info h1 {
+        font-size: 1.5rem;
+    }
+    .quick-actions {
+        justify-content: flex-start; /* Alinear botones a la izquierda */
+        width: 100%;
+    }
+    .quick-actions .btn {
+        flex-grow: 1; /* Para que los botones ocupen espacio disponible */
+        text-align: center;
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-card {
+        padding: 1rem;
+    }
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .card-icon {
+        margin-bottom: 0.5rem;
+    }
+    .quick-actions .btn {
+        font-size: 0.875rem;
+        padding: 0.6rem 1rem;
+    }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "proyecto-ia42",
+  "version": "1.0.0",
+  "description": "Experiencias de aprendizaje asistidas por Inteligencia Artificial para potenciar competencias reales.",
+  "main": "src/api/server.js",
+  "scripts": {
+    "dev": "nodemon src/api/server.js",
+    "start": "node src/api/server.js",
+    "db:migrate": "node deploy/scripts/migrate.js",
+    "db:seed": "node deploy/scripts/seed.js",
+    "build": "npm run build:frontend",
+    "build:frontend": "next build",
+    "test": "jest",
+    "lint": "eslint src/",
+    "format": "prettier --write src/"
+  },
+  "keywords": [
+    "education",
+    "ai",
+    "learning",
+    "platform",
+    "experiences",
+    "Competencies"
+  ],
+  "author": "ia43.cloud",
+  "license": "MIT",
+  "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "@supabase/supabase-js": "^2.38.4",
+    "axios": "^1.6.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.1",
+    "nodemailer": "^6.10.1",
+    "paypal-rest-sdk": "^1.8.1",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

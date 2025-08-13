@@ -1,0 +1,575 @@
+/* ================================================
+   🔑 IA42 LOGIN PAGE STYLES - VERSIÓN FINAL UNIFICADA
+   ================================================ */
+
+/* Compatible con el sistema de temas existente */
+/* Integrado con sistema unificado de password toggle */
+
+:root {
+    /* Variables específicas para login */
+    --login-success: #22c55e;
+    --login-error: #ef4444;
+    --login-warning: #f59e0b;
+    --login-info: #3b82f6;
+    
+    /* Variables suavizadas específicas para login */
+    --login-primary-soft: hsla(45, 85%, 58%, 0.1);
+    --login-border-soft: hsla(45, 85%, 58%, 0.2);
+    --login-shadow-soft: 0 4px 12px hsla(45, 85%, 58%, 0.15);
+}
+
+[data-theme="light"] {
+    --login-primary-soft: hsla(45, 75%, 45%, 0.08);
+    --login-border-soft: hsla(45, 75%, 45%, 0.15);    
+    --login-shadow-soft: 0 4px 12px hsla(45, 75%, 45%, 0.12);
+}
+
+/* ================================================
+   🏗️ LAYOUT PRINCIPAL
+   ================================================ */
+
+/* Main Container */
+.login-main {
+    padding-top: 150px; /* Espacio para el header fijo */
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Card with Glassmorphism */
+.login-card {
+    max-width: 450px;
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .login-card {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Hover effect for card */
+.login-card:hover {
+    border-color: rgba(255,215,0,0.3);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] .login-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* ================================================
+   📝 HEADER DEL FORMULARIO
+   ================================================ */
+
+.login-form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-form-title {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.login-form-subtitle {
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* ================================================
+   📋 ESTILOS DE FORMULARIO
+   ================================================ */
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+/* ================================================
+   📝 INPUTS Y WRAPPERS
+   ================================================ */
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Iconos dentro de los inputs */
+.input-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-foreground);
+    pointer-events: none;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+/* 🚫 REMOVIDO: Estilos duplicados del password toggle 
+   Ahora se usan los del sistema unificado en password-toggle-unified.css */
+
+/* Estilos base para inputs */
+.input-wrapper input[type="email"],
+.input-wrapper input[type="password"],
+.input-wrapper #password {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 3rem; /* Espacio para iconos a ambos lados */
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--foreground);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+[data-theme="light"] .input-wrapper input[type="email"],
+[data-theme="light"] .input-wrapper input[type="password"] {
+    background: rgba(0,0,0,0.05);
+}
+
+/* Estados de foco para inputs */
+.input-wrapper input[type="email"]:focus,
+.input-wrapper input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    background: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .input-wrapper input[type="email"]:focus,
+[data-theme="light"] .input-wrapper input[type="password"]:focus {
+    background: rgba(0,0,0,0.08);
+}
+
+/* Cambiar color del icono cuando el input está enfocado */
+.input-wrapper input:focus + i,
+.input-wrapper input:focus ~ i {
+    color: var(--primary);
+}
+
+/* Placeholder styles */
+.input-wrapper input::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.7;
+}
+
+/* Estados hover mejorados para inputs */
+.input-wrapper input[type="email"]:hover,
+.input-wrapper input[type="password"]:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    background: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .input-wrapper input[type="email"]:hover,
+[data-theme="light"] .input-wrapper input[type="password"]:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* ================================================
+   ❌ MENSAJES DE ERROR
+   ================================================ */
+
+
+#notificationContainer {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+}
+
+.notification-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #323232;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateX(20px);
+    animation: fadeInSlide 0.3s forwards, fadeOut 0.3s ease-in-out 3s forwards;
+    font-family: 'Inter', sans-serif;
+}
+
+.notification-box.success { background-color: #28a745; }
+.notification-box.error { background-color: #dc3545; }
+.notification-box.info { background-color: #17a2b8; }
+.notification-box.warning { background-color: #ffc107; }
+
+@keyframes fadeInSlide {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+
+
+.field-error {
+    color: var(--login-error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+    padding-left: 0.5rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+}
+
+.field-error.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================================================
+   ⚙️ OPCIONES DEL FORMULARIO
+   ================================================ */
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.checkbox-container:hover {
+    color: var(--foreground);
+}
+
+.checkbox-container input[type="checkbox"] {
+    accent-color: var(--primary);
+    margin-right: 0.3rem;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* 🚫 REMOVIDO: .checkmark personalizado - usamos checkbox nativo */
+
+.forgot-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+    color: var(--secondary);
+    background: var(--login-primary-soft);
+}
+
+/* ================================================
+   🔘 BOTONES DEL FORMULARIO
+   ================================================ */
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-buttons .btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Efecto de ripple para botones */
+.form-buttons .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.form-buttons .btn:active::before {
+    width: 200%;
+    height: 200%;
+}
+
+/* Estados de loading para botones */
+.btn .btn-loader {
+    display: none;
+}
+
+.btn .btn-loader .spinner {
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-spin 0.75s linear infinite;
+}
+
+.btn:disabled .btn-loader {
+    display: inline-block;
+}
+
+.btn:disabled .btn-text {
+    display: none;
+}
+
+@keyframes spinner-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ================================================
+   📄 FOOTER DEL FORMULARIO
+   ================================================ */
+
+.form-footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+}
+
+.form-footer p {
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.form-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+    color: var(--secondary);
+    background: var(--login-primary-soft);
+}
+
+/* ================================================
+   📱 RESPONSIVE DESIGN
+   ================================================ */
+
+@media (max-width: 640px) {
+    .login-main {
+        padding: 1rem;
+        min-height: calc(100vh - 120px);
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0.75rem;
+    }
+    
+    .login-form-title {
+        font-size: 1.5rem;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .input-wrapper input[type="email"],
+    .input-wrapper input[type="password"] {
+        padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .input-wrapper i {
+        left: 0.75rem;
+    }
+    
+    .form-buttons {
+        gap: 0.75rem;
+    }
+    
+    .form-buttons .btn {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .login-form-subtitle {
+        font-size: 0.85rem;
+    }
+}
+
+/* ================================================
+   ♿ ESTADOS DE FOCO MEJORADOS PARA ACCESIBILIDAD
+   ================================================ */
+
+.input-wrapper input[type="email"]:focus,
+.input-wrapper input[type="password"]:focus,
+.checkbox-container input[type="checkbox"]:focus,
+.form-buttons .btn:focus,
+.forgot-link:focus,
+.form-footer a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ================================================
+   🎨 MEJORAS VISUALES ADICIONALES
+   ================================================ */
+
+/* Animación sutil para la card */
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-card {
+    animation: cardSlideIn 0.5s ease-out;
+}
+
+/* ================================================
+   🔧 UTILIDADES Y HELPERS
+   ================================================ */
+
+/* Clase para ocultar elementos durante loading */
+.loading-hidden {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Clase para campos con error */
+.input-error input {
+    border-color: var(--login-error) !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Clase para campos válidos */
+.input-success input {
+    border-color: var(--login-success);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* ================================================
+   📝 CHANGELOG Y NOTAS
+   ================================================ */
+
+/*
+✅ CAMBIOS REALIZADOS EN ESTA VERSIÓN:
+
+1. REMOVIDO CSS DUPLICADO:
+   - Estilos del password toggle (ahora en unified)
+   - .checkmark personalizado (usando checkbox nativo)
+   - CSS inline que se generaba desde JS
+
+2. UNIFICADO CON SISTEMA:
+   - Compatible con password-toggle-unified.css
+   - Clases CSS consistentes
+   - Nomenclatura estandarizada
+
+3. LIMPIEZA Y OPTIMIZACIÓN:
+   - Comentarios organizados y descriptivos
+   - Código más mantenible
+   - Mejor separación de responsabilidades
+
+4. ACCESIBILIDAD MEJORADA:
+   - Focus states más consistentes
+   - Mejor contraste y visibilidad
+   - Soporte para screen readers
+
+DEPENDENCIAS REQUERIDAS:
+- password-toggle-unified.css (sistema unificado)
+- styles.css (variables globales y tema)
+- Font Awesome (iconos)
+
+ESTRUCTURA HTML REQUERIDA:
+- .input-wrapper para contenedores de input
+- .password-toggle para botones de toggle
+- .form-group para agrupación de campos
+*/

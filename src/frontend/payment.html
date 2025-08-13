@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagar Curso - IA42</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://sdk.onvopay.com/sdk.js"></script>
+  <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <link href="assets/css/styles.css" rel="stylesheet" />
+  <link href="assets/css/index.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      box-sizing: border-box;
+    }
+
+    .payment-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .payment-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .payment-section h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .payment-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .payment-option h4 {
+      font-size: 1.5rem;
+      color: #34495e;
+      margin-bottom: 15px;
+    }
+
+    .confirmation-card {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .confirmation-card p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    .price-selection {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .price-option {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+
+    .btn-primary:disabled {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+    }
+
+    .alert-success, .alert-danger {
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .modal-contenido {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      position: relative;
+      box-sizing: border-box;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-contenido h2 {
+      font-size: 1.8rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .cerrar-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #666;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cerrar-modal:hover {
+      color: #333;
+    }
+
+    .card-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card-form label {
+      font-size: 1rem;
+      color: #34495e;
+    }
+
+    .card-form input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .card-form input.error {
+      border-color: #721c24;
+    }
+
+    .card-form .error-message {
+      color: #721c24;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .card-icons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-icons i {
+      font-size: 1.5rem;
+      color: #666;
+    }
+
+    .card-icons i.active {
+      color: #2c3e50;
+    }
+
+    #onvo-pay-button-container {
+      margin-top: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .payment-container {
+        padding: 10px;
+      }
+
+      .payment-section h1 {
+        font-size: 1.5rem;
+      }
+
+      .payment-card {
+        padding: 15px;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-contenido {
+        width: 95%;
+        padding: 20px;
+        max-height: 85vh;
+      }
+
+      .price-selection {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+  <base href="/app/" />
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="payment-container">
+    <section class="payment-section">
+      <h1><i class="fas fa-credit-card"></i> Pago de la LX</h1>
+      <div class="container">
+        <div class="payment-card">
+          <div class="payment-option">
+            <h4><i class="fas fa-credit-card"></i> Pagar con ONVO Pay</h4>
+            <div id="confirmation-card" class="confirmation-card" style="display: none;">
+              <p><strong>LX:</strong> <span id="course-name">Cargando...</span></p>
+              <div class="price-selection">
+                <label class="price-option">
+                  <input type="radio" name="plan" value="monthly" checked>
+                  Mensual: $<span id="price-monthly">0</span> USD/mes
+                </label>
+                <label class="price-option">
+                  <input type="radio" name="plan" value="6months">
+                  6 Meses: $<span id="price-6months">0</span> USD
+                </label>
+              </div>
+              <button id="confirm-pay" class="btn-primary">Confirmar y Pagar</button>
+            </div>
+            <div id="payment-message"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="notificationContainer"></div>
+  <div id="footer-placeholder"></div>
+
+  <!-- Card Input Modal -->
+  <div class="modal" id="cardModal">
+    <div class="modal-contenido">
+      <span class="cerrar-modal" id="btnCerrarCardModal">×</span>
+      <h2>Ingresar Datos de la Tarjeta</h2>
+      <div class="card-icons" id="card-icons">
+        <i class="fab fa-cc-visa" data-type="visa"></i>
+        <i class="fab fa-cc-mastercard" data-type="mastercard"></i>
+        <i class="fab fa-cc-amex" data-type="amex"></i>
+        <i class="fab fa-cc-discover" data-type="discover"></i>
+      </div>
+      <form id="card-form" class="card-form">
+        <label for="card-number">Número de Tarjeta</label>
+        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" />
+        <div id="card-number-error" class="error-message"></div>
+
+        <label for="card-expiry">Fecha de Expiración (MM/AA)</label>
+        <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" />
+        <div id="card-expiry-error" class="error-message"></div>
+
+        <label for="card-ccv">CCV</label>
+        <input type="text" id="card-ccv" placeholder="123" maxlength="4" />
+        <div id="card-ccv-error" class="error-message"></div>
+
+        <button type="submit" id="submit-card" class="btn-primary">Continuar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- OnvoPay Payment Modal -->
+  <div class="modal" id="ventanaModal">
+    <div class="modal-contenido">
+      <span class="cerrar-modal" id="btnCerrarModal">×</span>
+      <h2>Procesar Pago</h2>
+      <div id="onvo-pay-button-container"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/index.js" defer></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const cursoId = urlParams.get("curso");
+
+    if (!cursoId) {
+      showMessage("Curso no especificado.", "danger");
+      throw new Error("ID del curso no encontrado");
+    }
+
+    // Card validation and type detection
+    function validateCardNumber(cardNumber) {
+      const cleaned = cardNumber.replace(/\D/g, '');
+      if (cleaned.length < 13 || cleaned.length > 19) return false;
+      let sum = 0;
+      let isEven = false;
+      for (let i = cleaned.length - 1; i >= 0; i--) {
+        let digit = parseInt(cleaned[i]);
+        if (isEven) {
+          digit *= 2;
+          if (digit > 9) digit -= 9;
+        }
+        sum += digit;
+        isEven = !isEven;
+      }
+      return sum % 10 === 0;
+    }
+
+    function detectCardType(cardNumber) {
+      const cleaned = cardNumber.replace(/\D/g, '');
+      if (/^4/.test(cleaned)) return 'visa';
+      if (/^5[1-5]/.test(cleaned)) return 'mastercard';
+      if (/^3[47]/.test(cleaned)) return 'amex';
+      if (/^6(?:011|5)/.test(cleaned)) return 'discover';
+      return null;
+    }
+
+    function validateExpiry(expiry) {
+      const regex = /^(0[1-9]|1[0-2])\/[0-9]{2}$/;
+      if (!regex.test(expiry)) return false;
+      const [month, year] = expiry.split('/').map(Number);
+      const now = new Date();
+      const currentYear = now.getFullYear() % 100;
+      const currentMonth = now.getMonth() + 1;
+      return year > currentYear || (year === currentYear && month >= currentMonth);
+    }
+
+    function validateCCV(ccv, cardType) {
+      const cleaned = ccv.replace(/\D/g, '');
+      if (cardType === 'amex') return cleaned.length === 4;
+      return cleaned.length === 3;
+    }
+
+    async function initialize() {
+      if (typeof onvo === "undefined") {
+        showMessage("Error al cargar ONVO Pay. Verifica conexión.", "danger");
+        console.error("OnvoPay SDK no está disponible.");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        showMessage("Debes iniciar sesión para pagar.", "danger");
+        setTimeout(() => {
+          window.location.href = "/login.html";
+        }, 1500);
+        return;
+      }
+
+      let customerId; // Declare customerId to store for subscription payments
+
+      try {
+        // Get student profile
+        const profileRes = await fetch(`${API_BASE_URL}/students/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (!profileRes.ok) {
+          const errorData = await profileRes.json();
+          throw new Error(`Error ${profileRes.status}: ${errorData.message || 'No se pudo obtener el perfil'}`);
+        }
+        const profileData = await profileRes.json();
+        const id_student = profileData.data?.id_student || profileData.data?.student?.id_student;
+        if (!id_student) throw new Error("ID estudiante no encontrado");
+
+        // Get course details
+        const courseRes = await fetch(`${API_BASE_URL}/payments/course-details?cursoId=${cursoId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!courseRes.ok) {
+          const errorData = await courseRes.json();
+          throw new Error(`Error ${courseRes.status}: ${errorData.message || 'No se pudo obtener los detalles del curso'}`);
+        }
+        const { courseName, priceMonthly, price6Months, monthlyPriceId } = await courseRes.json();
+        document.getElementById("course-name").textContent = courseName || "Curso";
+        document.getElementById("price-monthly").textContent = priceMonthly || "0";
+        document.getElementById("price-6months").textContent = price6Months || "0";
+        document.getElementById("confirmation-card").style.display = "block";
+
+        // Create or get customer
+        const studentRes = await fetch(`${API_BASE_URL}/students/profile`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const studentData = await studentRes.json();
+        customerId = studentData.data?.onvo_customer_id;
+        if (!customerId) {
+          const customerRes = await fetch(`${API_BASE_URL}/payments/create-onvo-customer`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              studentId: id_student,
+              email: studentData.data?.email || "estudiante@example.com",
+              name: studentData.data?.name || "Estudiante"
+            })
+          });
+          if (!customerRes.ok) {
+            const errorData = await customerRes.json();
+            throw new Error(`Error ${customerRes.status}: ${errorData.message || 'No se pudo crear el cliente'}`);
+          }
+          const customerResponse = await customerRes.json();
+          customerId = customerResponse.customerId;
+          if (!customerId) throw new Error("No se recibió customerId");
+        }
+
+        // Card form handling
+        const cardForm = document.getElementById("card-form");
+        const cardNumberInput = document.getElementById("card-number");
+        const cardExpiryInput = document.getElementById("card-expiry");
+        const cardCCVInput = document.getElementById("card-ccv");
+        const cardNumberError = document.getElementById("card-number-error");
+        const cardExpiryError = document.getElementById("card-expiry-error");
+        const cardCCVError = document.getElementById("card-ccv-error");
+        const cardIcons = document.querySelectorAll("#card-icons i");
+
+        cardNumberInput.addEventListener("input", () => {
+          let value = cardNumberInput.value.replace(/\D/g, '');
+          value = value.match(/.{1,4}/g)?.join(' ') || value;
+          cardNumberInput.value = value;
+          const cardType = detectCardType(value);
+          cardIcons.forEach(icon => {
+            icon.classList.toggle("active", cardType === icon.dataset.type);
+          });
+          cardNumberError.textContent = validateCardNumber(value) ? "" : "Número de tarjeta inválido";
+          cardNumberInput.classList.toggle("error", !validateCardNumber(value));
+        });
+
+        cardExpiryInput.addEventListener("input", () => {
+          let value = cardExpiryInput.value.replace(/\D/g, '');
+          if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2, 4);
+          cardExpiryInput.value = value;
+          cardExpiryError.textContent = validateExpiry(value) ? "" : "Fecha de expiración inválida";
+          cardExpiryInput.classList.toggle("error", !validateExpiry(value));
+        });
+
+        cardCCVInput.addEventListener("input", () => {
+          const cardType = detectCardType(cardNumberInput.value);
+          cardCCVError.textContent = validateCCV(cardCCVInput.value, cardType) ? "" : "CCV inválido";
+          cardCCVInput.classList.toggle("error", !validateCCV(cardCCVInput.value, cardType));
+        });
+
+        document.getElementById("confirm-pay").addEventListener("click", () => {
+          document.getElementById("cardModal").style.display = "flex";
+        });
+
+        cardForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          document.getElementById("submit-card").disabled = true;
+
+          const cardNumber = cardNumberInput.value;
+          const cardExpiry = cardExpiryInput.value;
+          const cardCCV = cardCCVInput.value;
+          const cardType = detectCardType(cardNumber);
+
+          if (!validateCardNumber(cardNumber)) {
+            cardNumberError.textContent = "Número de tarjeta inválido";
+            cardNumberInput.classList.add("error");
+            document.getElementById("submit-card").disabled = false;
+            return;
+          }
+          if (!validateExpiry(cardExpiry)) {
+            cardExpiryError.textContent = "Fecha de expiración inválida";
+            cardExpiryInput.classList.add("error");
+            document.getElementById("submit-card").disabled = false;
+            return;
+          }
+          if (!validateCCV(cardCCV, cardType)) {
+            cardCCVError.textContent = "CCV inválido";
+            cardCCVInput.classList.add("error");
+            document.getElementById("submit-card").disabled = false;
+            return;
+          }
+
+          document.getElementById("cardModal").style.display = "none";
+
+          try {
+            const plan = document.querySelector('input[name="plan"]:checked').value;
+            let paymentResult;
+
+            if (plan === "monthly") {
+              const subscriptionRes = await fetch(`${API_BASE_URL}/payments/create-onvo-subscription`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  cursoId,
+                  studentId: id_student,
+                  priceId: monthlyPriceId
+                })
+              });
+              if (!subscriptionRes.ok) {
+                const errorData = await subscriptionRes.json();
+                throw new Error(`Error ${subscriptionRes.status}: ${errorData.message || 'No se pudo crear la suscripción'}`);
+              }
+              const { subscriptionId } = await subscriptionRes.json();
+              if (!subscriptionId) throw new Error("No se recibió subscriptionId");
+
+              document.getElementById("ventanaModal").style.display = "flex";
+
+              try {
+                paymentResult = await onvo.pay({
+                  publicKey: "onvo_test_publishable_key_kzOkpVEfSmImyAv4xr-vHx-xRpA5flmHqVygpk3V8CQ6QAFJKoOMc5aCOOFCwGtdtVsmS04V7gqp9zOYwyMIGQ",
+                  subscriptionId,
+                  customerId, // Added customerId
+                  paymentType: "subscription",
+                  paymentMethod: {
+                    type: "card",
+                    card: {
+                      number: cardNumber.replace(/\s/g, ''),
+                      exp_month: parseInt(cardExpiry.split('/')[0]),
+                      exp_year: parseInt(cardExpiry.split('/')[1]) + 2000,
+                      cvc: cardCCV
+                    }
+                  }
+                }).render("#onvo-pay-button-container");
+              } catch (error) {
+                showMessage(`Error en pago: ${error.message || 'Error en la llamada a OnvoPay'}`, "danger");
+                console.error("OnvoPay error:", error);
+                document.getElementById("submit-card").disabled = false;
+                return;
+              }
+
+              console.log("OnvoPay payment result:", paymentResult); // Debug log
+
+              if (!paymentResult || paymentResult.error) {
+                showMessage(`Error en pago: ${paymentResult?.error?.message || 'Respuesta inválida de OnvoPay'}`, "danger");
+                document.getElementById("submit-card").disabled = false;
+                return;
+              }
+
+              const confirmRes = await fetch(`${API_BASE_URL}/payments/confirm-onvo-subscription`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  subscriptionId: paymentResult.subscription.id,
+                  cursoId,
+                  studentId: id_student
+                })
+              });
+              const confirmData = await confirmRes.json();
+              if (confirmData.status === "active") {
+                showMessage("¡Suscripción activada con éxito!", "success");
+                document.getElementById("ventanaModal").style.display = "none";
+                setTimeout(() => {
+                  window.location.href = `/curso.html?id=${cursoId}&pagado=true`;
+                }, 1500);
+              } else {
+                showMessage(`Suscripción no activada: ${confirmData.message || 'Error desconocido'}`, "danger");
+              }
+            } else {
+              const intentRes = await fetch(`${API_BASE_URL}/payments/create-onvo-payment-intent`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  cursoId,
+                  studentId: id_student,
+                  amount: price6Months,
+                  currency: "USD",
+                  description: `Pago por curso ID ${cursoId} (6 meses)`
+                })
+              });
+              if (!intentRes.ok) {
+                const errorData = await intentRes.json();
+                throw new Error(`Error ${intentRes.status}: ${errorData.message || 'No se pudo crear el intento de pago'}`);
+              }
+              const { paymentIntentId } = await intentRes.json();
+              if (!paymentIntentId) throw new Error("No se recibió paymentIntentId");
+
+              document.getElementById("ventanaModal").style.display = "flex";
+
+              try {
+                paymentResult = await onvo.pay({
+                  publicKey: "onvo_test_publishable_key_kzOkpVEfSmImyAv4xr-vHx-xRpA5flmHqVygpk3V8CQ6QAFJKoOMc5aCOOFCwGtdtVsmS04V7gqp9zOYwyMIGQ",
+                  paymentIntentId,
+                  paymentMethod: {
+                    type: "card",
+                    card: {
+                      number: cardNumber.replace(/\s/g, ''),
+                      exp_month: parseInt(cardExpiry.split('/')[0]),
+                      exp_year: parseInt(cardExpiry.split('/')[1]) + 2000,
+                      cvc: cardCCV
+                    }
+                  }
+                }).render("#onvo-pay-button-container");
+              } catch (error) {
+                showMessage(`Error en pago: ${error.message || 'Error en la llamada a OnvoPay'}`, "danger");
+                console.error("OnvoPay error:", error);
+                document.getElementById("submit-card").disabled = false;
+                return;
+              }
+
+              console.log("OnvoPay payment result:", paymentResult); // Debug log
+
+              if (!paymentResult || paymentResult.error) {
+                showMessage(`Error en pago: ${paymentResult?.error?.message || 'Respuesta inválida de OnvoPay'}`, "danger");
+                document.getElementById("submit-card").disabled = false;
+                return;
+              }
+
+              const captureRes = await fetch(`${API_BASE_URL}/payments/capture-onvo-payment`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  paymentIntentId: paymentResult.paymentIntent.id,
+                  cursoId,
+                  studentId: id_student
+                })
+              });
+              const captureData = await captureRes.json();
+              if (captureData.status === "succeeded") {
+                showMessage("¡Pago realizado con éxito!", "success");
+                document.getElementById("ventanaModal").style.display = "none";
+                setTimeout(() => {
+                  window.location.href = `/curso.html?id=${cursoId}&pagado=true`;
+                }, 1500);
+              } else {
+                showMessage(`Pago no completado: ${captureData.message || 'Error desconocido'}`, "danger");
+              }
+            }
+          } catch (err) {
+            showMessage(`Error durante el proceso de pago: ${err.message}`, "danger");
+            console.error("Payment error:", err);
+          } finally {
+            document.getElementById("submit-card").disabled = false;
+          }
+        });
+
+        // Modal event listeners
+        const cardModal = document.getElementById("cardModal");
+        const btnCerrarCardModal = document.getElementById("btnCerrarCardModal");
+        btnCerrarCardModal.addEventListener("click", () => {
+          cardModal.style.display = "none";
+        });
+        cardModal.addEventListener("click", (e) => {
+          if (e.target === cardModal) {
+            cardModal.style.display = "none";
+          }
+        });
+
+        const modal = document.getElementById("ventanaModal");
+        const btnCerrarModal = document.getElementById("btnCerrarModal");
+        btnCerrarModal.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      } catch (err) {
+        showMessage(`Error al cargar datos: ${err.message}`, "danger");
+        console.error("Initialization error:", err);
+      }
+    }
+
+    function waitForSDK(attempts = 100, interval = 100) {
+      if (typeof onvo !== "undefined") {
+        initialize();
+      } else if (attempts > 0) {
+        setTimeout(() => waitForSDK(attempts - 1, interval), interval);
+      } else {
+        console.error("Failed to load OnvoPay SDK after 100 attempts.");
+        showMessage("Error: No se pudo cargar el SDK de OnvoPay.", "danger");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      waitForSDK();
+    });
+
+    function showMessage(message, type = "success") {
+      const msg = document.getElementById("payment-message");
+      msg.innerHTML = `<div class="alert-${type}">${message}</div>`;
+    }
+  </script>
+</body>
+</html>

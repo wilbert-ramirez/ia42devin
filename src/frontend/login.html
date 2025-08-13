@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/app/">
+    <title>Iniciar Sesión - IA42</title>
+    
+    <!-- 🎨 Favicons y Meta Tags -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <meta name="description" content="Inicia sesión en IA42 - Plataforma de aprendizaje con inteligencia artificial">
+    <meta name="keywords" content="login, ia42, inteligencia artificial, aprendizaje">
+    
+    <!-- 🎨 External Resources -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 🎨 CSS Styles - Arquitectura organizada -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/password-toggle-unified.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+    <!-- 🏗️ Header global se carga dinámicamente -->
+    <div id="header-placeholder"></div>
+
+    <!-- 🏠 Main Content -->
+    <main class="login-main">
+        <div class="login-card">
+            
+            <!-- 📝 Header del formulario -->
+            <div class="login-form-header">
+                <h2 class="login-form-title">
+                    <i class="fas fa-rocket" style="margin-right: 0.5rem; color: var(--primary);"></i>
+                    Bienvenido de vuelta
+                </h2>
+                <p class="login-form-subtitle">Inicia sesión para continuar tu aprendizaje</p>
+            </div>
+
+            <!-- 📋 Formulario de Login -->
+            
+            <form id="loginForm" method="POST"  novalidate>
+                
+                <!-- 📧 Campo de Email -->
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                        Correo Electrónico
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            placeholder="tu@email.com" 
+                            autocomplete="email"
+                            required
+                            aria-describedby="emailError"
+                        />
+                    </div>
+                    <div id="emailError" class="field-error" role="alert"></div>
+                </div>
+
+                <!-- 🔐 Campo de Contraseña -->
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                        Contraseña
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            placeholder="Tu contraseña" 
+                            autocomplete="current-password"
+                            required
+                            aria-describedby="passwordError"
+                        />
+                        <!-- 🔑 Toggle de contraseña usando sistema unificado -->
+                        <button 
+                            type="button" 
+                            id="togglePassword" 
+                            class="password-toggle" 
+                            aria-label="Mostrar contraseña"
+                            tabindex="0"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div id="passwordError" class="field-error" role="alert"></div>
+                </div>
+
+                <!-- ⚙️ Opciones del formulario -->
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" />
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" id="forgotLink" class="forgot-link">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+                </div>
+
+                <!-- 🔘 Botones del formulario -->
+                <div class="form-buttons">
+                    <button type="submit" id="loginBtn" class="btn btn-primary">
+                        <span id="submitText">
+                            <i class="fas fa-sign-in-alt" style="margin-right: 0.5rem;"></i>
+                            Iniciar Sesión
+                        </span>
+                        <div id="submitLoader" class="btn-loader" style="display: none;">
+                            <div class="spinner"></div>
+                            <span style="margin-left: 0.5rem;">Iniciando sesión...</span>
+                        </div>
+                    </button>
+                    
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i>
+                        Volver al inicio
+                    </button>
+                </div>
+            </form>
+
+            <!-- 📄 Footer del formulario -->
+            <div class="form-footer">
+                <p>¿No tienes una cuenta?</p>
+                <a href="register.html">
+                    <i class="fas fa-user-plus" style="margin-right: 0.5rem;"></i>
+                    Crear cuenta gratuita
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Recuperar Contraseña</h2>
+            </div>
+            <div class="modal-body">
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="forgotEmail">
+                            <i class="fas fa-envelope"></i> Correo Electrónico
+                        </label>
+                        <input type="email" id="forgotEmail" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-spinner fa-spin" id="forgotSpinner" style="display: none;"></i>
+                        Enviar Enlace de Recuperación
+                    </button>
+                </form>
+                <div class="modal-footer">
+                    <p>
+                        <a href="login">Volver al inicio de sesión</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🦶 Footer global se carga dinámicamente -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Notification -->
+    <div id="notificationContainer"></div>
+
+<!-- REEMPLAZA todos los scripts del final con esto: -->
+    
+    <!-- Scripts base SIN defer -->
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/password-toggle-unified.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <!-- Login script con verificación -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Esperar a que api esté disponible
+        function waitForApi() {
+            if (typeof api !== 'undefined' && api) {
+                console.log('✅ API disponible, cargando login.js');
+                const script = document.createElement('script');
+                script.src = 'assets/js/login.js';
+                document.head.appendChild(script);
+            } else {
+                console.log('⏳ Esperando API...');
+                setTimeout(waitForApi, 100);
+            }
+        }
+        waitForApi();
+    });
+    </script>
+</body>
+</html>
+
+<!-- 
+================================================
+📝 NOTAS PARA DESARROLLADORES
+================================================
+
+FUNCIONALIDADES INCLUIDAS:
+✅ Sistema unificado de password toggle
+✅ Validación en tiempo real
+✅ Manejo de estados de loading
+✅ Accesibilidad completa (ARIA labels, roles)
+✅ Estructura semántica correcta
+✅ Responsive design
+✅ Integración con sistema de temas
+✅ Compatible con ApiClient
+✅ Logging para debugging
+✅ Auto-confirmación de email desde URL
+✅ Recuperación de contraseña
+✅ Manejo de errores completo
+
+CLASES CSS IMPORTANTES:
+- .input-wrapper: Contenedor de input con iconos
+- .password-toggle: Botón para mostrar/ocultar contraseña (sistema unificado)
+- .field-error: Mensajes de error de validación
+- .form-group: Grupo de campo de formulario
+- .btn-loader: Estados de loading en botones
+
+EVENTOS JAVASCRIPT:
+- submit: Envío del formulario
+- click en .password-toggle: Mostrar/ocultar contraseña (automático)
+- input/blur: Validación en tiempo real
+- forgot password: Solicitud de recuperación
+
+DEPENDENCIAS:
+- Font Awesome 6.0.0 (iconos)
+- Inter font (tipografía)
+- Sistema de temas global (theme.js)
+- ApiClient (api.js)
+- Sistema de autenticación (auth.js)
+- Sistema unificado de password toggle
+
+SEGURIDAD:
+- Autocomplete attributes correctos
+- CSRF protection ready
+- Input validation
+- Error handling
+- No inline JavaScript (excepto desarrollo)
+
+ACCESIBILIDAD:
+- Labels descriptivos
+- ARIA labels y roles
+- Focus management
+- Keyboard navigation
+- Screen reader friendly
+- High contrast support
+
+================================================
+-->
