@@ -118,7 +118,7 @@ router.get('/lx-home', async (req, res) => {
                 lxcat.name AS category_name,
                 lxprice.amount_monthly AS price
             FROM lx 
-            LEFT JOIN lx_category lxcat ON lx.id_lx_category = lxcat.id_category
+            LEFT JOIN lx_category lxcat ON lx.id_category = lxcat.id_category
             LEFT JOIN lx_price lxprice ON lx.id_lx_price = lxprice.id
             WHERE lx.status = 'active'
             ORDER BY lx.standout DESC, lx.shortname
