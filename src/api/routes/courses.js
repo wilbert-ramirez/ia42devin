@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
                 lx.status,
                 lx.standout,
                 lxcat.name as category_name,
-                lxprice.amount as price
+                lxprice.amount_monthly as price
             FROM lx 
-            LEFT JOIN lx_category lxcat ON lx.id_category = lxcat.id_category
-            LEFT JOIN lxprice ON lx.id_lx_price = lxprice.id_price
+            LEFT JOIN lx_category lxcat ON lx.id_lx_category = lxcat.id
+            LEFT JOIN lx_price lxprice ON lx.id_lx_price = lxprice.id
             WHERE lx.status = 'active'
             ORDER BY lx.standout DESC, lx.shortname
         `);
@@ -61,7 +61,7 @@ router.get('/subscriptions', authenticateToken, async (req, res) => {
                 (SELECT COUNT(*) FROM suscription s2 WHERE s2.id_student = $1 AND s2.validthru < CURRENT_DATE) AS expired_count
             FROM suscription sub
             JOIN lx ON sub.id_lx = lx.id
-            LEFT JOIN lx_category lxcat ON lx.id_category = lxcat.id_category
+            LEFT JOIN lx_category lxcat ON lx.id_lx_category = lxcat.id
             LEFT JOIN lx_price ON lx.id_lx_price = lx_price.id
             WHERE lx.status = 'active' 
                 AND sub.id_student = $1
@@ -118,8 +118,8 @@ router.get('/lx-home', async (req, res) => {
                 lxcat.name AS category_name,
                 lxprice.amount_monthly AS price
             FROM lx 
-            LEFT JOIN lx_category lxcat ON lx.id_category = lxcat.id_category
-            LEFT JOIN lxprice ON lx.id_lx_price = lxprice.id_price
+            LEFT JOIN lx_category lxcat ON lx.id_lx_category = lxcat.id
+            LEFT JOIN lx_price lxprice ON lx.id_lx_price = lxprice.id
             WHERE lx.status = 'active'
             ORDER BY lx.standout DESC, lx.shortname
         `);
